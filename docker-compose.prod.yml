@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - web-root:/var/www/html
+      - ./nginx-conf:/etc/nginx/conf.d
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - ./dhparam:/etc/ssl/certs
+    depends_on:
+      - server
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - web-root:/var/www/html
+    depends_on:
+      - nginx
+    command: certonly --webroot --webroot-path=/var/www/html --email iamgrewal7@gmail.com --agree-tos --no-eff-email --force-renewal -d dev.iamg.app  -d www.dev.iamg.app
+
+volumes:
+  web-root:
+  certbot-etc:
+  certbot-var:

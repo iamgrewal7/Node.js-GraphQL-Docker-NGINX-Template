@@ -1,0 +1,29 @@
+type User {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+}
+
+type Response {
+  result: String!
+  message: String!
+}
+
+extend type Query {
+  users: [User]
+  login(email: String!, password: String!): Response!
+  logout: Response
+}
+
+type Mutation {
+  createUser(userInput: UserInput): Boolean
+}
+
+input UserInput {
+  firstName: String
+  lastName: String
+  email: String
+  password: String
+}

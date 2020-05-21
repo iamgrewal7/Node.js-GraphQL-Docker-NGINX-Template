@@ -1,0 +1,10 @@
+node_modules
+npm-debug.log
+Dockerfile
+*.log
+docker-compose.yml
+.github
+tslint.json
+.git
+.gitignore
+.env

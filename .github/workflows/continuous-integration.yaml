@@ -1,0 +1,17 @@
+name: Continuous Integration
+on:
+  pull_request:
+    types: [synchronize]
+
+jobs:
+  buildAndTest:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Install Dependencies
+        run: npm i
+
+      - name: Test
+        run: npm run test
